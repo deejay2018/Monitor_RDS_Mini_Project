@@ -1,0 +1,24 @@
+version: '3.1'
+services:
+  prometheus:
+    image: prom/prometheus:v2.0.0
+    ports:
+      - 9090:9090
+    volumes:
+      - ./prometheus-data/prometheus.yml:/etc/prometheus/prometheus.yml
+  alertmanager:
+    image: prom/alertmanager:v0.12.0
+    ports:
+      - 9093:9093
+  blackbox_exporter:
+    image: prom/blackbox-exporter
+    ports:
+      - "9115:9115"
+    restart: always
+    volumes:
+      - "./config:/config"
+    command: --config.file=/config/blackbox.yml
+  grafana:
+    image: grafana/grafana:7.2.1
+    ports:
+      - 3000:3000

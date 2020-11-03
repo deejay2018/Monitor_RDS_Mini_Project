@@ -1,0 +1,10 @@
+---
+- name: Edit webservers
+  hosts: webservers
+  tasks:
+  - name: Copy html file
+    template:
+      src: /tmp/index.html
+      dest: /home/ec2-user/src
+      mode: '0777'
+    become: true
